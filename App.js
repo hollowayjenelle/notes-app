@@ -5,7 +5,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { StyleSheet, Text, View } from "react-native";
 
 import { globalStyles } from "./styles/global";
-import Home from "./screens/Home";
+import AppStack from "./routes/AppStack";
 
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
@@ -22,11 +22,7 @@ export default function App() {
   if (!fontsLoaded && !fontError) {
     return null;
   }
-  return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
-      <Home />
-    </View>
-  );
+  return <AppStack onLayout={onLayoutRootView} />;
 }
 
 const styles = StyleSheet.create({
