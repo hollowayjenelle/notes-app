@@ -1,4 +1,3 @@
-import "react-native-gesture-handler";
 import React, { useCallback } from "react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -6,6 +5,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { StyleSheet, Text, View } from "react-native";
 
 import { globalStyles } from "./styles/global";
+import Home from "./screens/Home";
 
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
@@ -22,7 +22,11 @@ export default function App() {
   if (!fontsLoaded && !fontError) {
     return null;
   }
-  return <View style={styles.container} onLayout={onLayoutRootView}></View>;
+  return (
+    <View style={styles.container} onLayout={onLayoutRootView}>
+      <Home />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
