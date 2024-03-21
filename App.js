@@ -1,10 +1,15 @@
+import React, { useCallback } from "react";
 import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+
 import { StyleSheet, Text, View } from "react-native";
+
+import { globalStyles } from "./styles/global";
 
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
-    "nunito-semibold": require("./assets/fonts/Poppins-Bold.ttf"),
-    "nunito-regular": require("./assets/fonts/Poppins-Regular.ttf"),
+    "poppins-semibold": require("./assets/fonts/Poppins-SemiBold.ttf"),
+    "poppins-regular": require("./assets/fonts/Poppins-Regular.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {
@@ -16,11 +21,7 @@ export default function App() {
   if (!fontsLoaded && !fontError) {
     return null;
   }
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+  return <View style={styles.container} onLayout={onLayoutRootView}></View>;
 }
 
 const styles = StyleSheet.create({
