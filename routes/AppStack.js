@@ -24,9 +24,9 @@ const AppStack = () => {
           }}
         />
         <Stack.Screen
-          name="Profile"
+          name="Notes Details"
           component={NotesDetails}
-          options={({ route }) => ({ title: route.params.title })}
+          options={({ route }) => ({ title: route.params.noteTitle })}
         />
       </Stack.Navigator>
     </NavigationContainer>

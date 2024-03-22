@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -11,16 +11,34 @@ import {
 } from "react-native";
 
 import { AntDesign } from "@expo/vector-icons";
+import { collection, getDocs } from "firebase/firestore";
 
+import { db } from "../firebaseConfig";
 import { globalStyles } from "../styles/global";
 
 import NotesForm from "../components/NotesForm";
 
 const Home = ({ navigation }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [allNotes, setAllNotes] = useState([]);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
+
+  const fetchPost = async () => {
+    await getDocs(collection(db, "notes")).then((querySnapshot) => {
+      setAllNotes(
+        querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }))
+      );
+    });
+  };
+
+  useEffect(() => {
+    fetchPost();
+  }, []);
 
   return (
     <View style={globalStyles.container}>
@@ -43,6 +61,17 @@ const Home = ({ navigation }) => {
           </View>
         </TouchableWithoutFeedback>
       </Modal>
+      <FlatList
+        data={allNotes}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Notes Details", item)}
+          >
+            <Text>{item.noteTitle}</Text>
+          </TouchableOpacity>
+        )}
+      />
       <AntDesign
         name="pluscircle"
         size={24}
