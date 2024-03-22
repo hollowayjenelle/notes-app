@@ -19,9 +19,9 @@ import NotesForm from "../components/NotesForm";
 const Home = ({ navigation }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const handleModal = () => {
-    setModalOpen((prevModalOpen) => !prevModalOpen);
-  };
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+
   return (
     <View style={globalStyles.container}>
       <Modal visible={modalOpen} animationType="slide">
@@ -35,11 +35,11 @@ const Home = ({ navigation }) => {
                 name="closecircle"
                 size={28}
                 color="#006d77"
-                onPress={handleModal}
+                onPress={closeModal}
                 style={styles.modalCloseBtn}
               />
             </View>
-            <NotesForm />
+            <NotesForm closeModal={closeModal} />
           </View>
         </TouchableWithoutFeedback>
       </Modal>
@@ -47,7 +47,7 @@ const Home = ({ navigation }) => {
         name="pluscircle"
         size={24}
         color="#006d77"
-        onPress={handleModal}
+        onPress={openModal}
       />
     </View>
   );

@@ -5,7 +5,7 @@ import { globalStyles } from "../../styles/global";
 
 const CustomButton = ({ buttonName, handlePress }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={handlePress}>
       <View style={styles.formButton}>
         <Text style={[globalStyles.header, styles.buttonText]}>
           {buttonName}
