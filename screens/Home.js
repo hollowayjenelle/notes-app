@@ -39,7 +39,7 @@ const Home = ({ navigation }) => {
 
   useEffect(() => {
     fetchPost();
-  }, []);
+  }, [modalOpen]);
 
   return (
     <View style={globalStyles.container}>
