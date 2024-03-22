@@ -2,14 +2,11 @@ import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 
 import { globalStyles } from "../styles/global";
+import { convertTimeStampToDate } from "../shared/utils/convertDate";
 
 const NotesDetails = ({ route }) => {
   const { noteTitle, noteBody, creationDate } = route.params;
-  const firebaseTime = new Date(
-    creationDate.seconds * 1000 + creationDate.nanoseconds / 1000000
-  );
-  const noteDate = firebaseTime.toDateString();
-  const noteTime = firebaseTime.toLocaleTimeString();
+  const [noteDate, noteTime] = convertTimeStampToDate(creationDate);
   return (
     <View>
       <Text>{noteTitle}</Text>

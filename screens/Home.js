@@ -17,6 +17,7 @@ import { db } from "../firebaseConfig";
 import { globalStyles } from "../styles/global";
 
 import NotesForm from "../components/NotesForm";
+import Card from "../shared/components/Card";
 
 const Home = ({ navigation }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -63,12 +64,20 @@ const Home = ({ navigation }) => {
       </Modal>
       <FlatList
         data={allNotes}
+        numColumns={2}
+        key={2}
+        contentContainerStyle={{ gap: 5 }}
+        columnWrapperStyle={{ gap: 20 }}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => navigation.navigate("Notes Details", item)}
           >
-            <Text>{item.noteTitle}</Text>
+            <Card
+              title={item.noteTitle}
+              paragraph={item.noteBody}
+              date={item.creationDate}
+            />
           </TouchableOpacity>
         )}
       />
