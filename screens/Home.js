@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 import { AntDesign } from "@expo/vector-icons";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 
 import { db } from "../firebaseConfig";
 import { globalStyles } from "../styles/global";
@@ -27,7 +27,9 @@ const Home = ({ navigation }) => {
   const closeModal = () => setModalOpen(false);
 
   const fetchPost = async () => {
-    await getDocs(collection(db, "notes")).then((querySnapshot) => {
+    const notesRef = collection(db, "notes");
+    const timeQuery = query(notesRef, orderBy("creationDate", "desc"));
+    await getDocs(timeQuery).then((querySnapshot) => {
       setAllNotes(
         querySnapshot.docs.map((doc) => ({
           ...doc.data(),
