@@ -1,13 +1,22 @@
 import React, { useState } from "react";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  Timestamp,
+  doc,
+  updateDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 import { StyleSheet, ScrollView, TextInput } from "react-native";
-import { db } from "../firebaseConfig";
+import { db } from "../../firebaseConfig";
 
-import CustomButton from "../shared/components/CustomButton";
+import CustomButton from "./CustomButton";
 
-const NotesForm = ({ closeModal }) => {
-  const [noteTitle, setNoteTitle] = useState("");
-  const [noteBody, setNoteBody] = useState("");
+const NotesForm = ({ closeModal, buttonText, title, body, noteId = "" }) => {
+  const [noteTitle, setNoteTitle] = useState(title);
+  const [noteBody, setNoteBody] = useState(body);
+
+  const isCreateButton = buttonText === "Create Note";
 
   const handleCreate = async () => {
     const newNote = {
@@ -20,6 +29,21 @@ const NotesForm = ({ closeModal }) => {
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
+    }
+
+    closeModal();
+  };
+
+  const handleUpdate = async () => {
+    const noteRef = doc(db, "notes", noteId);
+    try {
+      await updateDoc(noteRef, {
+        noteTitle: noteTitle,
+        noteBody: noteBody,
+        creationDate: serverTimestamp(),
+      });
+    } catch (e) {
+      console.error("Error updating document: ", e);
     }
 
     closeModal();
@@ -41,7 +65,10 @@ const NotesForm = ({ closeModal }) => {
         onChangeText={(newText) => setNoteBody(newText)}
         style={[styles.formInput, styles.multilineInput]}
       />
-      <CustomButton buttonName={"Create Note"} handlePress={handleCreate} />
+      <CustomButton
+        buttonName={buttonText}
+        handlePress={isCreateButton ? handleCreate : handleUpdate}
+      />
     </ScrollView>
   );
 };

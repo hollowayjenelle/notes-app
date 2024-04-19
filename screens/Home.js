@@ -16,7 +16,7 @@ import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { globalStyles } from "../styles/global";
 
-import NotesForm from "../components/NotesForm";
+import NotesForm from "../shared/components/NotesForm";
 import Card from "../shared/components/Card";
 
 const Home = ({ navigation }) => {
@@ -60,7 +60,12 @@ const Home = ({ navigation }) => {
                 style={globalStyles.modalCloseBtn}
               />
             </View>
-            <NotesForm closeModal={closeModal} />
+            <NotesForm
+              closeModal={closeModal}
+              buttonText={"Create Note"}
+              title={""}
+              body={""}
+            />
           </View>
         </TouchableWithoutFeedback>
       </Modal>

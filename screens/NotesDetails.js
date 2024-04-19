@@ -12,8 +12,10 @@ import { AntDesign } from "@expo/vector-icons";
 import { globalStyles } from "../styles/global";
 import { convertTimeStampToDate } from "../shared/utils/convertDate";
 
+import NotesForm from "../shared/components/NotesForm";
+
 const NotesDetails = ({ route }) => {
-  const { noteTitle, noteBody, creationDate } = route.params;
+  const { noteTitle, noteBody, creationDate, id } = route.params;
   const [noteDate, noteTime] = convertTimeStampToDate(creationDate);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -27,7 +29,7 @@ const NotesDetails = ({ route }) => {
           <View style={globalStyles.modalContainer}>
             <View style={globalStyles.formHeader}>
               <Text style={[globalStyles.header, globalStyles.formTitle]}>
-                Create New Note
+                Update Note
               </Text>
               <AntDesign
                 name="closecircle"
@@ -37,7 +39,13 @@ const NotesDetails = ({ route }) => {
                 style={globalStyles.modalCloseBtn}
               />
             </View>
-            {/* <NotesForm closeModal={closeModal} /> */}
+            <NotesForm
+              closeModal={closeModal}
+              buttonText={"Update note"}
+              title={noteTitle}
+              body={noteBody}
+              noteId={id}
+            />
           </View>
         </TouchableWithoutFeedback>
       </Modal>
