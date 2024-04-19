@@ -47,9 +47,9 @@ const Home = ({ navigation }) => {
     <View style={globalStyles.container}>
       <Modal visible={modalOpen} animationType="slide">
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.modalContainer}>
-            <View style={styles.formHeader}>
-              <Text style={[globalStyles.header, styles.formTitle]}>
+          <View style={globalStyles.modalContainer}>
+            <View style={globalStyles.formHeader}>
+              <Text style={[globalStyles.header, globalStyles.formTitle]}>
                 Create New Note
               </Text>
               <AntDesign
@@ -57,7 +57,7 @@ const Home = ({ navigation }) => {
                 size={28}
                 color="#006d77"
                 onPress={closeModal}
-                style={styles.modalCloseBtn}
+                style={globalStyles.modalCloseBtn}
               />
             </View>
             <NotesForm closeModal={closeModal} />
@@ -93,21 +93,6 @@ const Home = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  modalContainer: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: "#edf6f9",
-  },
-  formHeader: {
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-    marginBottom: 30,
-  },
-  formTitle: {
-    fontSize: 26,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default Home;
